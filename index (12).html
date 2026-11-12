@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riders — Pre-Owned Luxury Motorcycles</title>
+<meta name="description" content="Riders is India's marketplace to buy and sell verified pre-owned luxury motorcycles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0c0d;
+  --bg-2:#141416;
+  --card:#18181b;
+  --line:#2a2a2e;
+  --text:#f2efe9;
+  --muted:#9d9a93;
+  --gold:#c9a45c;
+  --gold-2:#e6c88a;
+  --danger:#e06a5a;
+  --ok:#6fbf8a;
+  --radius:14px;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Manrope',system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{width:min(1200px,92vw);margin:0 auto}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.08;letter-spacing:.005em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1.6rem;border-radius:999px;border:1px solid var(--gold);background:var(--gold);color:#121212;font-weight:600;font-size:.92rem;cursor:pointer;transition:.25s}
+.btn:hover{background:var(--gold-2);border-color:var(--gold-2)}
+.btn.ghost{background:transparent;color:var(--text);border-color:#4a4740}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-2)}
+.btn.sm{padding:.55rem 1.1rem;font-size:.84rem}
+
+/* NAV */
+header.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:.3s;border-bottom:1px solid transparent}
+header.nav.scrolled{background:rgba(12,12,13,.88);backdrop-filter:blur(14px);border-color:var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{font-family:var(--serif);font-size:1.75rem;font-weight:700;letter-spacing:.2em}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;font-size:.9rem;color:#cfcbc2}
+.nav-links a:hover{color:var(--gold-2)}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.wish-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer;display:grid;place-items:center}
+.wish-btn:hover{border-color:var(--gold)}
+.wish-count{position:absolute;top:-4px;right:-4px;background:var(--gold);color:#111;font-size:.68rem;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+.menu-toggle{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:120px 0 70px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url(images/scout-green-ivory.jpg) center 60%/cover no-repeat;transform:scale(1.04)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,12,13,.55) 0%,rgba(12,12,13,.25) 35%,rgba(12,12,13,.92) 82%,var(--bg) 100%),linear-gradient(90deg,rgba(12,12,13,.85) 0%,rgba(12,12,13,0) 60%)}
+.hero-content{position:relative;z-index:2;max-width:640px}
+.hero h1{font-size:clamp(2.8rem,6.6vw,5.4rem);margin:1rem 0 1.2rem}
+.hero h1 em{color:var(--gold-2);font-style:italic}
+.hero p{color:#d6d2c9;font-size:1.06rem;max-width:520px;margin-bottom:2rem}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{position:relative;z-index:2;display:flex;gap:3rem;margin-top:3.5rem;padding-top:1.8rem;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap}
+.hero-stats b{display:block;font-family:var(--serif);font-size:2.1rem;color:var(--gold-2);font-weight:600}
+.hero-stats span{font-size:.8rem;color:var(--muted);letter-spacing:.06em}
+
+/* SEARCH BAR */
+.searchbar{position:relative;z-index:5;margin-top:-34px}
+.searchbar form{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:.6rem;background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:.7rem;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.field{display:flex;flex-direction:column;padding:.35rem .9rem;border-radius:10px;background:var(--card)}
+.field label{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{background:transparent;border:0;outline:0;padding:.2rem 0;font-size:.95rem;width:100%}
+.field select option{background:var(--card)}
+
+/* SECTIONS */
+section{padding:100px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(2.1rem,4vw,3.2rem);margin-top:.5rem}
+.sec-head p{color:var(--muted);max-width:420px}
+
+/* FILTER CHIPS */
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.6rem;align-items:center}
+.chip{padding:.5rem 1rem;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:.85rem;color:#cfcbc2;transition:.2s}
+.chip:hover{border-color:#55524b}
+.chip.active{background:var(--text);color:#111;border-color:var(--text)}
+.result-meta{margin-left:auto;font-size:.85rem;color:var(--muted)}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .35s,border-color .35s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);border-color:#3e3b35}
+.card-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:#e9e9e9}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover .card-img img{transform:scale(1.05)}
+.badge{position:absolute;top:12px;left:12px;background:rgba(12,12,13,.82);backdrop-filter:blur(6px);color:var(--gold-2);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;display:flex;align-items:center;gap:.35rem}
+.heart{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(12,12,13,.7);display:grid;place-items:center;cursor:pointer;transition:.2s}
+.heart:hover{background:rgba(12,12,13,.95)}
+.heart svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2}
+.heart.on svg{fill:var(--gold);stroke:var(--gold)}
+.card-body{padding:1.2rem 1.3rem 1.3rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.card h3{font-size:1.5rem}
+.card .brand{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.price{font-family:var(--serif);font-size:1.55rem;color:var(--gold-2);font-weight:600;white-space:nowrap}
+.specs{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.82rem;color:#bdb9b0;padding-top:.7rem;border-top:1px solid var(--line);margin-top:auto}
+.specs span{display:flex;align-items:center;gap:.35rem}
+.specs svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2}
+.empty{grid-column:1/-1;text-align:center;padding:4rem 1rem;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius)}
+
+/* HOW IT WORKS */
+.how{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+.step{padding:2rem 1.6rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
+.step .num{font-family:var(--serif);font-size:3rem;color:var(--gold);line-height:1}
+.step h3{font-size:1.45rem;margin:1rem 0 .5rem}
+.step p{color:var(--muted);font-size:.92rem}
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:2rem}
+.tabs button{border:0;background:transparent;padding:.55rem 1.3rem;border-radius:999px;cursor:pointer;font-size:.88rem;color:var(--muted)}
+.tabs button.active{background:var(--gold);color:#111;font-weight:600}
+
+/* SELL */
+.sell-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:3.5rem;align-items:start}
+.sell-copy h2{font-size:clamp(2.2rem,4vw,3.4rem);margin:.6rem 0 1rem}
+.sell-copy p{color:var(--muted);margin-bottom:1.8rem}
+.perks{list-style:none;display:grid;gap:1rem}
+.perks li{display:flex;gap:.9rem;align-items:flex-start}
+.perks .ico{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold)}
+.perks b{display:block;font-weight:600}
+.perks small{color:var(--muted);font-size:.86rem}
+.form{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.f label{font-size:.78rem;color:#cfcbc2;font-weight:500}
+.f input,.f select,.f textarea{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.75rem .9rem;outline:0;transition:border-color .2s;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--gold)}
+.f textarea{resize:vertical;min-height:90px}
+.f select option{background:var(--card)}
+.upload{border:1.5px dashed #3a3832;border-radius:12px;padding:1.4rem;text-align:center;cursor:pointer;transition:.2s;color:var(--muted);font-size:.88rem;position:relative}
+.upload:hover,.upload.drag{border-color:var(--gold);color:var(--text)}
+.upload input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-preview{display:none;margin-top:.8rem;border-radius:10px;overflow:hidden;aspect-ratio:16/9}
+.upload-preview img{width:100%;height:100%;object-fit:cover}
+.err{color:var(--danger);font-size:.78rem;display:none}
+.f.invalid input,.f.invalid select{border-color:var(--danger)}
+.f.invalid .err{display:block}
+.note{font-size:.78rem;color:var(--muted);margin-top:.8rem;text-align:center}
+
+/* TRUST */
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.trust{padding:2rem;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(160deg,#1a1917,#121213)}
+.trust h3{font-size:1.5rem;margin:.9rem 0 .4rem}
+.trust p{color:var(--muted);font-size:.92rem}
+.trust .ico{color:var(--gold)}
+.quote{margin-top:3rem;display:grid;grid-template-columns:1.1fr 1fr;border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.quote-img{min-height:360px;background:url(images/chief-classic-red.jpg) center/cover}
+.quote-txt{padding:3rem;background:var(--bg-2);display:flex;flex-direction:column;justify-content:center}
+.quote-txt h3{font-size:clamp(1.6rem,2.6vw,2.2rem);font-style:italic;font-weight:500;margin-bottom:1.4rem}
+.quote-txt p{color:var(--muted)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:60px 0 30px;background:#09090a}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2rem}
+.foot-grid h4{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:600}
+.foot-grid ul{list-style:none;display:grid;gap:.5rem;font-size:.9rem;color:var(--muted)}
+.foot-grid a:hover{color:var(--text)}
+.foot-grid p{color:var(--muted);font-size:.9rem;margin-top:.8rem;max-width:300px}
+.foot-bottom{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:.8rem;color:#6d6a64;flex-wrap:wrap;gap:1rem}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:1.5rem;background:rgba(0,0,0,.75);backdrop-filter:blur(6px)}
+.modal.open{display:flex;animation:fade .25s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;width:min(1000px,100%);max-height:92vh;overflow:auto;position:relative}
+.modal-close{position:absolute;top:14px;right:14px;z-index:3;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(12,12,13,.85);cursor:pointer;font-size:1.3rem;line-height:1}
+.modal-close:hover{border-color:var(--gold)}
+.detail{display:grid;grid-template-columns:1.2fr 1fr}
+.detail-img{background:#e9e9e9;min-height:100%}
+.detail-img img{width:100%;height:100%;object-fit:cover;min-height:420px}
+.detail-info{padding:2.2rem}
+.detail-info h2{font-size:2.3rem;margin:.4rem 0 .3rem}
+.detail-info .price{font-size:2rem;display:block;margin-bottom:1.2rem}
+.spec-table{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.2rem 0}
+.spec-table div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.7rem .9rem}
+.spec-table small{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.spec-table b{font-weight:600;font-size:.95rem}
+.detail-info p.desc{color:#c9c5bc;font-size:.94rem;margin-bottom:1.4rem}
+.seller{display:flex;align-items:center;gap:.8rem;padding:1rem 0;border-top:1px solid var(--line);margin-bottom:1rem}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#111;display:grid;place-items:center;font-weight:700}
+.seller small{color:var(--muted);display:block;font-size:.8rem}
+.detail-actions{display:flex;gap:.7rem;flex-wrap:wrap}
+.contact-box{max-width:520px;padding:2.2rem}
+.contact-box h2{font-size:2rem;margin-bottom:.4rem}
+.contact-box > p{color:var(--muted);margin-bottom:1.4rem;font-size:.92rem}
+.wish-list{padding:2.2rem;max-width:620px}
+.wish-item{display:flex;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.wish-item img{width:96px;height:72px;object-fit:cover;border-radius:8px;background:#e9e9e9}
+.wish-item div{flex:1}
+.wish-item b{font-family:var(--serif);font-size:1.25rem;font-weight:600;display:block}
+.wish-item small{color:var(--gold-2)}
+.link-btn{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.82rem;text-decoration:underline}
+.link-btn:hover{color:var(--danger)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--text);color:#111;padding:.85rem 1.4rem;border-radius:12px;font-weight:600;font-size:.9rem;z-index:200;transition:transform .35s;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.toast.show{transform:translate(-50%,0)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media (max-width:980px){
+  .steps{grid-template-columns:1fr 1fr}
+  .sell-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr}
+  .quote{grid-template-columns:1fr}
+  .detail{grid-template-columns:1fr}
+  .detail-img img{min-height:260px;max-height:340px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .searchbar form{grid-template-columns:1fr 1fr}
+  .searchbar .field:first-child{grid-column:1/-1}
+  .searchbar .btn{grid-column:1/-1}
+}
+@media (max-width:760px){
+  .nav-links{display:none;position:absolute;top:74px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg-2);border-bottom:1px solid var(--line)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:1rem 4vw;border-top:1px solid var(--line)}
+  .menu-toggle{display:block}
+  .nav-right .btn{display:none}
+  .grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hero-stats{gap:1rem;flex-wrap:nowrap;margin-top:2.5rem}
+  .hero-stats b{font-size:1.5rem}
+  .hero-stats span{font-size:.7rem;line-height:1.3;display:block}
+  section{padding:72px 0}
+  .foot-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo">RIDERS<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#buy">Buy</a>
+      <a href="#sell">Sell</a>
+      <a href="#how">How it works</a>
+      <a href="#trust">Why Riders</a>
+    </nav>
+    <div class="nav-right">
+      <button class="wish-btn" id="openWish" aria-label="Saved bikes">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        <span class="wish-count" id="wishCount">0</span>
+      </button>
+      <a href="#sell" class="btn sm">Sell your bike</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="eyebrow">Pre-owned · Verified · Ride-ready</div>
+      <h1>Own the legend.<br><em>Ride it home.</em></h1>
+      <p>Riders is the marketplace for pre-owned luxury motorcycles. Every bike is inspected, every document checked, every seller verified — so you only think about the road.</p>
+      <div class="hero-actions">
+        <a href="#buy" class="btn">Browse bikes</a>
+        <a href="#sell" class="btn ghost">List your bike</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div><b>150-pt</b><span>Inspection on every bike</span></div>
+      <div><b>48 hrs</b><span>Average time to first offer</span></div>
+      <div><b>100%</b><span>RC &amp; ownership verified</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="wrap searchbar">
+  <form id="searchForm" autocomplete="off">
+    <div class="field">
+      <label for="q">Search</label>
+      <input id="q" type="text" placeholder="Model, brand or city…">
+    </div>
+    <div class="field">
+      <label for="fBrand">Brand</label>
+      <select id="fBrand"><option value="">All brands</option></select>
+    </div>
+    <div class="field">
+      <label for="fPrice">Budget</label>
+      <select id="fPrice">
+        <option value="">Any price</option>
+        <option value="0-1000000">Under ₹10 L</option>
+        <option value="1000000-2000000">₹10 L – ₹20 L</option>
+        <option value="2000000-99999999">Above ₹20 L</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="fSort">Sort by</label>
+      <select id="fSort">
+        <option value="new">Newest listed</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+        <option value="km">Lowest km</option>
+      </select>
+    </div>
+    <button class="btn" type="submit">Search</button>
+  </form>
+</div>
+
+<!-- BUY -->
+<section id="buy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">The collection</div>
+        <h2>Bikes on the market</h2>
+      </div>
+      <p>Hand-picked cruisers, bobbers and tourers from owners across India. Tap any bike for full details and to contact the seller.</p>
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip active" data-type="">All</button>
+      <button class="chip" data-type="Cruiser">Cruiser</button>
+      <button class="chip" data-type="Bobber">Bobber</button>
+      <button class="chip" data-type="Tourer">Tourer</button>
+      <button class="chip" data-type="Roadster">Roadster</button>
+      <span class="result-meta" id="resultMeta"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Simple &amp; safe</div>
+        <h2>How Riders works</h2>
+      </div>
+      <div class="tabs" id="howTabs">
+        <button class="active" data-tab="buy">I'm buying</button>
+        <button data-tab="sell">I'm selling</button>
+      </div>
+    </div>
+    <div class="steps" id="steps"></div>
+  </div>
+</section>
+
+<!-- SELL -->
+<section id="sell">
+  <div class="wrap sell-grid">
+    <div class="sell-copy reveal">
+      <div class="eyebrow">Sell with Riders</div>
+      <h2>Your bike deserves the right next rider.</h2>
+      <p>List in minutes. We verify your documents, photograph your bike and bring you serious, pre-screened buyers — no lowballers, no endless calls.</p>
+      <ul class="perks">
+        <li><span class="ico">✓</span><div><b>Free listing</b><small>Pay nothing until your bike is sold.</small></div></li>
+        <li><span class="ico">✓</span><div><b>Doorstep inspection</b><small>Our expert visits you and certifies the bike.</small></div></li>
+        <li><span class="ico">✓</span><div><b>Secure payment &amp; RC transfer</b><small>We handle the paperwork, you get paid in full.</small></div></li>
+      </ul>
+    </div>
+    <form class="form reveal" id="sellForm" novalidate>
+      <div class="form-row">
+        <div class="f"><label for="sBrand">Brand *</label>
+          <select id="sBrand" required>
+            <option value="">Select brand</option>
+            <option>Indian</option><option>Harley-Davidson</option><option>Royal Enfield</option><option>Triumph</option><option>Ducati</option><option>BMW Motorrad</option><option>Kawasaki</option><option>Other</option>
+          </select><span class="err">Choose a brand</span></div>
+        <div class="f"><label for="sModel">Model *</label><input id="sModel" required placeholder="e.g. Scout Bobber"><span class="err">Enter the model</span></div>
+      </div>
+      <div class="form-row">
+        <div class="f"><label for="sYear">Year *</label><input id="sYear" type="number" min="1990" max="2026" required placeholder="2022"><span class="err">Enter a valid year</span></div>
+        <div class="f"><label for="sKm">Kilometres driven *</label><input id="sKm" type="number" min="0" required placeholder="8500"><span class="err">Enter kilometres</span></div>
+      </div>
+      <div class="form-row">
+        <div class="f"><label for="sPrice">Expected price (₹) *</label><input id="sPrice" type="number" min="10000" required placeholder="1450000"><span class="err">Enter your asking price</span></div>
+        <div class="f"><label for="sCity">City *</label><input id="sCity" required placeholder="Mumbai"><span class="err">Enter your city</span></div>
+      </div>
+      <div class="form-row">
+        <div class="f"><label for="sType">Style</label>
+          <select id="sType"><option>Cruiser</option><option>Bobber</option><option>Tourer</option><option>Roadster</option></select></div>
+        <div class="f"><label for="sOwner">Ownership</label>
+          <select id="sOwner"><option>1st owner</option><option>2nd owner</option><option>3rd owner+</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="f"><label for="sName">Your name *</label><input id="sName" required placeholder="Full name"><span class="err">Enter your name</span></div>
+        <div class="f"><label for="sPhone">Phone *</label><input id="sPhone" type="tel" required placeholder="10-digit mobile"><span class="err">Enter a 10-digit number</span></div>
+      </div>
+      <div class="f"><label for="sDesc">Description</label><textarea id="sDesc" placeholder="Service history, accessories, any modifications…"></textarea></div>
+      <div class="f">
+        <label>Photo of your bike</label>
+        <div class="upload" id="upload">
+          <input type="file" id="sPhoto" accept="image/*">
+          <span id="uploadText">Drop a photo here or <u>browse</u></span>
+          <div class="upload-preview" id="uploadPreview"><img alt="Preview"></div>
+        </div>
+      </div>
+      <button class="btn" type="submit" style="width:100%">List my bike</button>
+      <p class="note">Your listing appears in the collection instantly on this device.</p>
+    </form>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Why Riders</div>
+        <h2>Built on trust, not just listings</h2>
+      </div>
+    </div>
+    <div class="trust-grid">
+      <div class="trust reveal">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Certified inspection</h3>
+        <p>Engine, chassis, electricals and paint are checked across 150 points by trained technicians before a bike goes live.</p>
+      </div>
+      <div class="trust reveal">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+        <h3>Clean paperwork</h3>
+        <p>RC, insurance, loan clearance and challan history are verified. Ownership transfer is handled end to end.</p>
+      </div>
+      <div class="trust reveal">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>7-day assurance</h3>
+        <p>If a bike doesn't match its inspection report, raise it within 7 days and we'll make it right.</p>
+      </div>
+    </div>
+    <div class="quote reveal">
+      <div class="quote-img" role="img" aria-label="Indian Chief Classic in a showroom"></div>
+      <div class="quote-txt">
+        <div class="eyebrow" style="margin-bottom:1rem">From our riders</div>
+        <h3>“Sold my Chief in four days to someone who genuinely loves it. Paperwork was done before I'd even finished the handover chai.”</h3>
+        <p>— Arjun M., Bengaluru</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo">RIDERS<span>.</span></a>
+        <p>India's marketplace for verified, pre-owned luxury motorcycles.</p>
+      </div>
+      <div>
+        <h4>Marketplace</h4>
+        <ul><li><a href="#buy">Buy a bike</a></li><li><a href="#sell">Sell a bike</a></li><li><a href="#how">How it works</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="#trust">Why Riders</a></li><li><a href="#trust">Inspection</a></li><li><a href="#trust">Assurance</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li>hello@riders.in</li><li>+91 98765 43210</li><li>Mon–Sat, 10am–7pm</li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Riders. All rights reserved.</span>
+      <span>Ride safe. Ride proud.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="detailModal" aria-hidden="true">
+  <div class="modal-box">
+    <button class="modal-close" data-close aria-label="Close">×</button>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal" id="contactModal" aria-hidden="true">
+  <div class="modal-box contact-box">
+    <button class="modal-close" data-close aria-label="Close">×</button>
+    <h2 id="contactTitle">Contact seller</h2>
+    <p id="contactSub"></p>
+    <form id="contactForm" novalidate>
+      <div class="f"><label for="cName">Your name *</label><input id="cName" required><span class="err">Enter your name</span></div>
+      <div class="f"><label for="cPhone">Phone *</label><input id="cPhone" type="tel" required placeholder="10-digit mobile"><span class="err">Enter a 10-digit number</span></div>
+      <div class="f"><label for="cOffer">Your offer (₹, optional)</label><input id="cOffer" type="number" min="0"></div>
+      <div class="f"><label for="cMsg">Message</label><textarea id="cMsg">Hi, I'm interested in this bike. Is it still available for a test ride?</textarea></div>
+      <button class="btn" type="submit" style="width:100%">Send enquiry</button>
+    </form>
+  </div>
+</div>
+
+<!-- WISHLIST MODAL -->
+<div class="modal" id="wishModal" aria-hidden="true">
+  <div class="modal-box wish-list">
+    <button class="modal-close" data-close aria-label="Close">×</button>
+    <h2 style="font-size:2rem;margin-bottom:1rem">Saved bikes</h2>
+    <div id="wishBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- DATA ---------- */
+const BIKES = [
+  {id:1,brand:"Indian",model:"Scout Bobber Sixty",year:2020,km:6800,price:1095000,city:"Mumbai",type:"Bobber",owner:"1st owner",color:"Thunder Black",engine:"999 cc V-twin",img:"images/scout-bobber-sixty-black.jpg",seller:"Rohan K.",listed:2,
+   desc:"Blacked-out bobber in near-showroom condition. Always garaged, serviced at the authorised Indian dealership, with a fresh set of tyres at 5,000 km."},
+  {id:2,brand:"Indian",model:"Scout Bobber",year:2025,km:2100,price:1520000,city:"Delhi",type:"Bobber",owner:"1st owner",color:"Storm Blue",engine:"1250 cc SpeedPlus V-twin",img:"images/scout-bobber-blue.jpg",seller:"Kabir S.",listed:1,
+   desc:"Latest-generation Scout Bobber with the 1250 cc engine. Barely run in, under manufacturer warranty, all accessories and second key included."},
+  {id:3,brand:"Indian",model:"Sport Chief",year:2024,km:4300,price:2450000,city:"Bengaluru",type:"Tourer",owner:"1st owner",color:"Copper Metallic",engine:"1890 cc Thunderstroke 116",img:"images/sport-chief-gold.jpg",seller:"Aditi R.",listed:3,
+   desc:"Performance bagger with factory hard bags, Fox suspension and Brembo brakes. Ceramic-coated, PPF on tank and bags. A head-turner on every ride."},
+  {id:4,brand:"Indian",model:"Chief Classic",year:2017,km:18500,price:1650000,city:"Kolkata",type:"Cruiser",owner:"2nd owner",color:"Indian Motorcycle Red",engine:"1811 cc Thunderstroke 111",img:"images/chief-classic-red.jpg",seller:"Sourav D.",listed:6,
+   desc:"Iconic valanced fenders, whitewall tyres and the illuminated war-bonnet. Complete service records, keyless ignition and cruise control working perfectly."},
+  {id:5,brand:"Indian",model:"Scout",year:2019,km:9200,price:1185000,city:"Pune",type:"Cruiser",owner:"1st owner",color:"Willow Green over Ivory Cream",engine:"1133 cc V-twin",img:"images/scout-green-ivory.jpg",seller:"Meera P.",listed:4,
+   desc:"Rare two-tone Willow Green and Ivory Cream with genuine tan leather seat. Chrome dual exhaust and headdress tank graphic — a true collector's spec."},
+  {id:6,brand:"Indian",model:"Scout Sixty",year:2018,km:12400,price:895000,city:"Hyderabad",type:"Cruiser",owner:"2nd owner",color:"Indian Motorcycle Red",engine:"999 cc V-twin",img:"images/scout-sixty-red.jpg",seller:"Faizan A.",listed:5,
+   desc:"Comes with passenger seat and sissy bar, chrome slip-on exhaust and black machined wheels. Recently serviced with new chain and sprocket."},
+  {id:7,brand:"Indian",model:"Scout Sixty",year:2021,km:5600,price:975000,city:"Chennai",type:"Cruiser",owner:"1st owner",color:"White Smoke",engine:"999 cc V-twin",img:"images/scout-sixty-white.jpg",seller:"Vikram N.",listed:2,
+   desc:"Crisp White Smoke paint with blacked-out engine. Low kilometres, all original parts, and extended warranty valid till 2027."},
+  {id:8,brand:"Royal Enfield",model:"Hunter 350",year:2023,km:7800,price:145000,city:"Ahmedabad",type:"Roadster",owner:"1st owner",color:"Dapper White",engine:"349 cc single",img:"images/re-hunter-350-white.jpg",seller:"Harsh T.",listed:7,
+   desc:"Perfect city roadster — light, nimble and frugal. Single owner, full RE service history, insured till 2027."}
+];
+
+/* ---------- STATE ---------- */
+const store = {
+  get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+let userBikes = store.get("riders_user_bikes",[]);
+let wishlist = new Set(store.get("riders_wishlist",[]));
+let activeType = "";
+const allBikes = () => [...userBikes, ...BIKES];
+
+/* ---------- HELPERS ---------- */
+const $ = s => document.querySelector(s);
+const inr = n => "₹" + Number(n).toLocaleString("en-IN");
+const lakh = n => n >= 100000 ? "₹" + (n/100000).toFixed(n%100000===0?0:2).replace(/\.?0+$/,"") + " L" : inr(n);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const heartSvg = '<svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
+const ic = {
+  cal:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  road:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-4"/></svg>',
+  pin:'<svg viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>'
+};
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2600)}
+
+/* ---------- RENDER GRID ---------- */
+function populateBrands(){
+  const sel=$("#fBrand"), cur=sel.value;
+  const brands=[...new Set(allBikes().map(b=>b.brand))].sort();
+  sel.innerHTML='<option value="">All brands</option>'+brands.map(b=>`<option${b===cur?" selected":""}>${esc(b)}</option>`).join("");
+}
+function filtered(){
+  const q=$("#q").value.trim().toLowerCase();
+  const brand=$("#fBrand").value;
+  const [min,max]=($("#fPrice").value||"0-999999999").split("-").map(Number);
+  const sort=$("#fSort").value;
+  let list=allBikes().filter(b=>{
+    const hay=`${b.brand} ${b.model} ${b.city} ${b.color} ${b.type}`.toLowerCase();
+    return (!q||hay.includes(q)) && (!brand||b.brand===brand) && b.price>=min && b.price<=max && (!activeType||b.type===activeType);
+  });
+  const by={new:(a,b)=>a.listed-b.listed,low:(a,b)=>a.price-b.price,high:(a,b)=>b.price-a.price,km:(a,b)=>a.km-b.km}[sort];
+  return list.sort(by);
+}
+function renderGrid(){
+  const list=filtered();
+  $("#resultMeta").textContent=`${list.length} bike${list.length===1?"":"s"} found`;
+  if(!list.length){$("#grid").innerHTML='<div class="empty">No bikes match those filters. Try widening your budget or clearing the search.</div>';return}
+  $("#grid").innerHTML=list.map(b=>`
+    <article class="card" data-id="${b.id}">
+      <div class="card-img">
+        <img src="${b.img}" alt="${esc(b.year+" "+b.brand+" "+b.model)}" loading="lazy">
+        <span class="badge">${b.user?"Your listing":"✓ Riders Certified"}</span>
+        <button class="heart ${wishlist.has(b.id)?"on":""}" data-heart="${b.id}" aria-label="Save">${heartSvg}</button>
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <div><div class="brand">${esc(b.brand)} · ${esc(b.type)}</div><h3>${esc(b.model)}</h3></div>
+          <div class="price">${lakh(b.price)}</div>
+        </div>
+        <div class="specs">
+          <span>${ic.cal}${b.year}</span>
+          <span>${ic.road}${Number(b.km).toLocaleString("en-IN")} km</span>
+          <span>${ic.user}${esc(b.owner)}</span>
+          <span>${ic.pin}${esc(b.city)}</span>
+        </div>
+      </div>
+    </article>`).join("");
+}
+
+/* ---------- WISHLIST ---------- */
+function toggleWish(id){
+  wishlist.has(id)?(wishlist.delete(id),toast("Removed from saved bikes")):(wishlist.add(id),toast("Saved to your wishlist"));
+  store.set("riders_wishlist",[...wishlist]);updateWishCount();renderGrid();
+  if($("#wishModal").classList.contains("open"))renderWish();
+}
+function updateWishCount(){$("#wishCount").textContent=[...wishlist].filter(id=>allBikes().some(b=>b.id===id)).length}
+function renderWish(){
+  const items=allBikes().filter(b=>wishlist.has(b.id));
+  $("#wishBody").innerHTML=items.length?items.map(b=>`
+    <div class="wish-item">
+      <img src="${b.img}" alt="">
+      <div><b>${esc(b.year+" "+b.brand+" "+b.model)}</b><small>${inr(b.price)} · ${esc(b.city)}</small></div>
+      <button class="btn sm ghost" data-view="${b.id}">View</button>
+      <button class="link-btn" data-unwish="${b.id}">Remove</button>
+    </div>`).join(""):'<p style="color:var(--muted)">No saved bikes yet. Tap the heart on any bike to save it here.</p>';
+}
+
+/* ---------- MODALS ---------- */
+function openModal(id){$(id).classList.add("open");$(id).setAttribute("aria-hidden","false");document.body.style.overflow="hidden"}
+function closeModal(el){el.classList.remove("open");el.setAttribute("aria-hidden","true");if(!document.querySelector(".modal.open"))document.body.style.overflow=""}
+let currentBike=null;
+function openDetail(id){
+  const b=allBikes().find(x=>x.id===id); if(!b)return; currentBike=b;
+  $("#detailBody").innerHTML=`
+    <div class="detail">
+      <div class="detail-img"><img src="${b.img}" alt="${esc(b.brand+" "+b.model)}"></div>
+      <div class="detail-info">
+        <div class="eyebrow">${esc(b.brand)} · ${esc(b.type)}</div>
+        <h2>${esc(b.year+" "+b.model)}</h2>
+        <span class="price">${inr(b.price)}</span>
+        <p class="desc">${esc(b.desc||"No description provided.")}</p>
+        <div class="spec-table">
+          <div><small>Year</small><b>${b.year}</b></div>
+          <div><small>Kilometres</small><b>${Number(b.km).toLocaleString("en-IN")} km</b></div>
+          <div><small>Engine</small><b>${esc(b.engine||"—")}</b></div>
+          <div><small>Colour</small><b>${esc(b.color||"—")}</b></div>
+          <div><small>Ownership</small><b>${esc(b.owner)}</b></div>
+          <div><small>Location</small><b>${esc(b.city)}</b></div>
+        </div>
+        <div class="seller">
+          <div class="avatar">${esc(b.seller.charAt(0))}</div>
+          <div><b>${esc(b.seller)}</b><small>${b.user?"Listed by you":"Verified seller · Listed "+b.listed+" day"+(b.listed>1?"s":"")+" ago"}</small></div>
+        </div>
+        <div class="detail-actions">
+          ${b.user?`<button class="btn ghost" data-remove="${b.id}">Remove listing</button>`:`<button class="btn" id="contactBtn">Contact seller</button>`}
+          <button class="btn ghost" data-heart="${b.id}">${wishlist.has(b.id)?"♥ Saved":"♡ Save"}</button>
+        </div>
+      </div>
+    </div>`;
+  openModal("#detailModal");
+}
+
+/* ---------- HOW IT WORKS ---------- */
+const STEPS={
+  buy:[["Browse","Explore certified bikes with real photos, full specs and inspection reports."],["Enquire","Send an enquiry or offer. The seller and our team respond within hours."],["Test ride","Book a test ride at the seller's place or a Riders partner garage."],["Ride home","Pay securely; we transfer the RC and you ride off with peace of mind."]],
+  sell:[["List","Add your bike's details and a photo — it takes under five minutes."],["Inspect","Our technician visits your doorstep to certify the bike."],["Get offers","Receive offers only from verified, serious buyers."],["Get paid","Money hits your account before the keys change hands. We do the paperwork."]]
+};
+function renderSteps(tab){$("#steps").innerHTML=STEPS[tab].map((s,i)=>`<div class="step"><div class="num">0${i+1}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("")}
+
+/* ---------- VALIDATION ---------- */
+function validate(form,rules){
+  let ok=true;
+  for(const [id,test] of Object.entries(rules)){
+    const el=form.querySelector("#"+id), f=el.closest(".f"), good=test(el.value.trim());
+    f.classList.toggle("invalid",!good); if(!good&&ok){el.focus();ok=false}
+  }
+  return ok;
+}
+const phoneOk=v=>/^[6-9]\d{9}$/.test(v.replace(/[\s-]/g,"").replace(/^(\+91|0)/,""));
+
+/* ---------- SELL FORM ---------- */
+let photoData=null;
+function readPhoto(file){
+  if(!file||!file.type.startsWith("image/"))return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{ // downscale so it fits in localStorage
+      const max=900, s=Math.min(1,max/img.width), c=document.createElement("canvas");
+      c.width=img.width*s;c.height=img.height*s;c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+      photoData=c.toDataURL("image/jpeg",.78);
+      const p=$("#uploadPreview");p.querySelector("img").src=photoData;p.style.display="block";
+      $("#uploadText").textContent=file.name+" — tap to change";
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+$("#sPhoto").addEventListener("change",e=>readPhoto(e.target.files[0]));
+const up=$("#upload");
+["dragenter","dragover"].forEach(ev=>up.addEventListener(ev,e=>{e.preventDefault();up.classList.add("drag")}));
+["dragleave","drop"].forEach(ev=>up.addEventListener(ev,e=>{e.preventDefault();up.classList.remove("drag")}));
+up.addEventListener("drop",e=>readPhoto(e.dataTransfer.files[0]));
+
+$("#sellForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f=e.target;
+  const ok=validate(f,{
+    sBrand:v=>!!v, sModel:v=>v.length>1, sYear:v=>+v>=1990&&+v<=2026, sKm:v=>v!==""&&+v>=0,
+    sPrice:v=>+v>=10000, sCity:v=>v.length>1, sName:v=>v.length>1, sPhone:phoneOk
+  });
+  if(!ok){toast("Please fill in the highlighted fields");return}
+  const bike={
+    id:Date.now(),user:true,brand:$("#sBrand").value,model:$("#sModel").value.trim(),year:+$("#sYear").value,km:+$("#sKm").value,
+    price:+$("#sPrice").value,city:$("#sCity").value.trim(),type:$("#sType").value,owner:$("#sOwner").value,
+    color:"",engine:"",desc:$("#sDesc").value.trim(),seller:$("#sName").value.trim(),listed:0,
+    img:photoData||"images/scout-bobber-sixty-black.jpg"
+  };
+  userBikes.unshift(bike);
+  store.set("riders_user_bikes",userBikes);
+  f.reset();photoData=null;$("#uploadPreview").style.display="none";$("#uploadText").innerHTML="Drop a photo here or <u>browse</u>";
+  populateBrands();activeType="";document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.type===""));
+  $("#fSort").value="new";renderGrid();
+  toast("Your bike is live! 🎉");
+  document.getElementById("buy").scrollIntoView({behavior:"smooth"});
+});
+
+/* ---------- CONTACT FORM ---------- */
+$("#contactForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!validate(e.target,{cName:v=>v.length>1,cPhone:phoneOk})){return}
+  const name=$("#cName").value.trim();
+  closeModal($("#contactModal"));e.target.reset();
+  $("#cMsg").value="Hi, I'm interested in this bike. Is it still available for a test ride?";
+  toast(`Thanks ${name}! Your enquiry is noted — the seller will be in touch.`);
+});
+
+/* ---------- EVENTS ---------- */
+document.addEventListener("click",e=>{
+  const t=e.target;
+  const heart=t.closest("[data-heart]"); if(heart){e.stopPropagation();const id=+heart.dataset.heart;toggleWish(id);if($("#detailModal").classList.contains("open")&&currentBike&&currentBike.id===id)openDetail(id);return}
+  const card=t.closest(".card"); if(card){openDetail(+card.dataset.id);return}
+  if(t.closest("[data-close]")||t.classList.contains("modal")){closeModal(t.closest(".modal"));return}
+  if(t.id==="contactBtn"){$("#contactTitle").textContent="Contact "+currentBike.seller;$("#contactSub").textContent=`About the ${currentBike.year} ${currentBike.brand} ${currentBike.model} · ${inr(currentBike.price)}`;openModal("#contactModal");return}
+  const rm=t.closest("[data-remove]"); if(rm){userBikes=userBikes.filter(b=>b.id!==+rm.dataset.remove);store.set("riders_user_bikes",userBikes);closeModal($("#detailModal"));populateBrands();renderGrid();updateWishCount();toast("Listing removed");return}
+  const view=t.closest("[data-view]"); if(view){closeModal($("#wishModal"));openDetail(+view.dataset.view);return}
+  const un=t.closest("[data-unwish]"); if(un){toggleWish(+un.dataset.unwish);return}
+  if(t.closest("#openWish")){renderWish();openModal("#wishModal");return}
+  const chip=t.closest(".chip"); if(chip){activeType=chip.dataset.type;document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c===chip));renderGrid();return}
+  const tab=t.closest("#howTabs button"); if(tab){document.querySelectorAll("#howTabs button").forEach(b=>b.classList.toggle("active",b===tab));renderSteps(tab.dataset.tab);return}
+  if(t.closest("#menuToggle")){$("#navLinks").classList.toggle("open");return}
+  if(t.closest("#navLinks a")){$("#navLinks").classList.remove("open")}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal.open").forEach(closeModal)});
+$("#searchForm").addEventListener("submit",e=>{e.preventDefault();renderGrid();document.getElementById("buy").scrollIntoView({behavior:"smooth"})});
+["#fBrand","#fPrice","#fSort"].forEach(s=>$(s).addEventListener("change",renderGrid));
+$("#q").addEventListener("input",renderGrid);
+window.addEventListener("scroll",()=>$("#nav").classList.toggle("scrolled",scrollY>40),{passive:true});
+
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target)}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* ---------- INIT ---------- */
+$("#yr").textContent=new Date().getFullYear();
+populateBrands();renderGrid();renderSteps("buy");updateWishCount();
+</script>
+</body>
+</html>
